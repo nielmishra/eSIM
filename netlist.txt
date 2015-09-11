@@ -1,0 +1,10 @@
+*ngspice netlist  by niel mishra* 
+v 1 0 
+r 1 0 
+
+.tran 1e-03 11e-03 1e-03
+
+.control 
+run 
+.endc 
+.end 
