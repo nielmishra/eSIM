@@ -1,10 +1,11 @@
 *ngspice netlist  by niel mishra* 
-v 1 0 
-r 1 0 
+v1 1 0 dc 5v
+r1 1 0 10
 
-.tran 1e-03 11e-03 1e-03
+.dc v1 1e-00 11e-00 1e-00
 
 .control 
 run 
+plot allv 
 .endc 
 .end 

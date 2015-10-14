@@ -1,6 +1,51 @@
 jQuery(document).ready(function(){
-    jQuery("#webtronics_netlist_text_save").click(function(){
-    console.log("button clicked");
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------
+For Simulation of Netlist
+------------------------------------------------------------------------------------------------------------------------------------------------*/
+ jQuery("#webtronics_netlist_simulate").click(function(){
+    console.log("simulation button clicked");
+			
+	jQuery.ajax({
+	
+	url: "/webtronix/webtronix-master/simulation.php",
+         type: "POST",
+        data: {netlist:jQuery("#webtronics_netlist_text_area").val()},
+        dataType: "html",
+        
+        
+     /*   success: function() {
+        console.log("success");
+            }
+ 
+ 	*/
+	success: function() {
+	//console.log(data);
+	window.location = "/webtronix/webtronix-master/simulation.php"	;
+	alert ();
+	//if( data == 'fail' ) {
+	//console.log("nahi hua  bc");
+	//} 
+    
+       // else if (data = 'success') {
+        //console.log("ho gaya bc");
+    	//} 
+}, 
+            
+            
+        });
+	
+	
+ });
+
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------
+For Download of netlist
+------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    jQuery("#webtronics_netlist_text_download").click(function(){
+    //console.log("button clicked");
 			
 	jQuery.ajax({
 	
@@ -15,15 +60,16 @@ jQuery(document).ready(function(){
             }
  
  	*/
-            
-    success: function( data ) {
-	console.log(data.status);
-    if( data.status == 'error' ) {
+	success: function() {
+	//console.log(data);
+	window.location = "/webtronix/webtronix-master/download.php"	;
+	//if( data == 'fail' ) {
+	//console.log("nahi hua  bc");
+	//} 
     
-        console.log("nahi hua  bc");
-    } else /*if (data.status == 'success')*/ {
-        console.log("ho gaya bc");
-    }
+       // else if (data = 'success') {
+        //console.log("ho gaya bc");
+    	//} 
 }, 
             
             
@@ -31,6 +77,9 @@ jQuery(document).ready(function(){
 	
 	
  });
+
+
+
 /*------------------------------------------------------------------------------------------------------------------------------------------------
 DC FUNCTIONALITY IS WRITTEN HERE 
 ---------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -367,7 +416,7 @@ jQuery("#step_time_selectbox").change(function(){
 	 step_trans_unit = "12";
 	}
 	
-	//console.log(step_trans_unit);
+	console.log(step_trans_unit);
 });	
 
 jQuery("#stop_time_selectbox").change(function(){
@@ -391,7 +440,7 @@ jQuery("#stop_time_selectbox").change(function(){
 	 stop_trans_unit = "12";
 	}
 	
-	//console.log(stop_trans_unit);
+	console.log(stop_trans_unit);
 });	
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -417,7 +466,7 @@ Flag = "";
 	{	
 	  	//console.log(jQuery("#analysis_selectbox").val());
 				 
-             jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".dc" + " " + source + " " + start + "e" + "-" + start_dc_unit + " " +  stop + "e" + "-" + stop_dc_unit + " " + increment + "e" + "-" + increment_dc_unit + '\n' + '\n'+ ".control \n"+ "run \n"+  ".endc \n"+ ".end \n" );
+             jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".dc" + " " + source + " " + start + "e" + "-" + start_dc_unit + " " +  stop + "e" + "-" + stop_dc_unit + " " + increment + "e" + "-" + increment_dc_unit + '\n' + '\n'+ ".control \n"+ "run \n"+ "plot allv \n" + ".endc \n"+ ".end \n" );
             
 	      change_val = "1";
     //console.log(jQuery("#analysis_selectbox").val());
@@ -429,7 +478,7 @@ Here are the all AC Cases for generating final netlist values
 ------------------------------------------------------------------------------------------------------------------------------------------------*/
 	else if (analysis_type == "2")
 	{
-		jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".ac" + " " + scale_val + " " + noofpoint + " " + startfreq + start_ac_unit + " " + stopfreq + stop_ac_unit + '\n' + '\n'+ ".control \n"+  "run \n"+".endc \n"+ ".end \n" );
+		jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".ac" + " " + scale_val + " " + noofpoint + " " + startfreq + start_ac_unit + " " + stopfreq + stop_ac_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ "plot allv \n" + ".endc \n"+  ".end \n" );
 
 		change_val = "1";
 	} 
@@ -439,7 +488,7 @@ Here are the all Transiet Cases for generating final netlist values
 	//else if (analysis_type == "3" && time == "1")
 	else if (analysis_type == "3")
 	{
-		jQuery("#webtronics_netlist_text_area").val(Flag + '\n' + ".tran" + " " + step_trans + "e" + "-" + step_trans_unit + " " + stop_trans + "e"+ "-" + stop_trans_unit + " " + start_trans + "e" + "-" + start_trans_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ ".endc \n" +".end \n" ); 
+		jQuery("#webtronics_netlist_text_area").val(Flag + '\n' + ".tran" + " " + step_trans + "e" + "-" + step_trans_unit + " " + stop_trans + "e"+ "-" + stop_trans_unit + " " + start_trans + "e" + "-" + start_trans_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ "plot allv \n" + ".endc \n" +".end \n" ); 
 
 		change_val = "1";
 	}
@@ -459,7 +508,7 @@ else if( change_val == "1")
 		{	
 	 
 				 
-             jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".dc" + " " + source + " " + start + "e" + "-" + start_dc_unit + " " +  stop + "e" + "-" + stop_dc_unit + " " + increment + "e" + "-" + increment_dc_unit + '\n' + '\n'+ ".control \n"+ "run \n"+  ".endc \n"+ ".end \n" );
+             jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".dc" + " " + source + " " + start + "e" + "-" + start_dc_unit + " " +  stop + "e" + "-" + stop_dc_unit + " " + increment + "e" + "-" + increment_dc_unit + '\n' + '\n'+ ".control \n"+ "run \n"+ "plot allv \n" +  ".endc \n"+ ".end \n" );
             		change_val = "1";
 		}	      
 
@@ -467,7 +516,7 @@ else if( change_val == "1")
 	
 	else if (analysis_type == "2")
 	{
-		jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".ac" + " " + scale_val + " " + noofpoint + " " + startfreq + start_ac_unit + " " + stopfreq + stop_ac_unit + '\n' + '\n'+ ".control \n"+  "run \n"+".endc \n"+ ".end \n" );
+		jQuery("#webtronics_netlist_text_area").val(Flag + '\n'+ ".ac" + " " + scale_val + " " + noofpoint + " " + startfreq + start_ac_unit + " " + stopfreq + stop_ac_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ "plot allv \n" +   ".endc \n"+ ".end \n" );
 
 		change_val = "1";
 	} 
@@ -475,7 +524,7 @@ else if( change_val == "1")
 
 	else if (analysis_type == "3")
 	{
-		jQuery("#webtronics_netlist_text_area").val(Flag + '\n' + ".tran" + " " + step_trans + "e" + "-" + step_trans_unit + " " + stop_trans + "e"+ "-" + stop_trans_unit + " " + start_trans + "e" + "-" + start_trans_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ ".endc \n" +".end \n" ); 
+		jQuery("#webtronics_netlist_text_area").val(Flag + '\n' + ".tran" + " " + step_trans + "e" + "-" + step_trans_unit + " " + stop_trans + "e"+ "-" + stop_trans_unit + " " + start_trans + "e" + "-" + start_trans_unit + '\n' + '\n'+ ".control \n"+  "run \n"+ "plot allv \n" + ".endc \n" +".end \n" ); 
 
 			change_val = "1";
 	}
@@ -486,26 +535,4 @@ else if( change_val == "1")
 
 });
 });
-
-
-
-
-
-
-
-
-
-
-//jQuery("#analysis_selectbox").click(function(){
-//var eles = '<select><option>AC Analysis</option><option>DC analysis</option><option>Transient Analysis</option></select>';
-
-//	jQuery('#domchange').append(eles);
-//jQuery(this).prop('disabled', true);
-//console.log(jQuery(this));
-//if opt
-	//alert("hello world");
-
-
-
-//jQuery("#analysis").click(function(){
 
