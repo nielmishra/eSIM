@@ -1,10 +1,19 @@
 jQuery(document).ready(function(){
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------
-For Simulation of Netlist
+For Simulation of Netlist and Removal of netlist Window
 ------------------------------------------------------------------------------------------------------------------------------------------------*/
- jQuery("#webtronics_netlist_simulate").click(function(){
+
+  jQuery("#webtronics_netlist_simulate").click(function(){
     console.log("simulation button clicked");
+    jQuery('#webtronics_netlist_text_div').hide(); 
+    jQuery('#webtronics_netlist_buttons').hide();
+    jQuery('#webtronics_netlist_text').hide();       
+    jQuery('#webtronics_disable').hide();
+   
+    
+    
+    
 			
 	jQuery.ajax({
 	
@@ -13,23 +22,29 @@ For Simulation of Netlist
         data: {netlist:jQuery("#webtronics_netlist_text_area").val()},
         dataType: "html",
         
-        
-     /*   success: function() {
-        console.log("success");
-            }
- 
- 	*/
-	success: function() {
+    /*    
+    type: "POST",
+    url: "/eSIM/simulation.php",
+    data: '$image,$image1',
+    success:function(phpData){
+        alert(phpData);
+    }*/
+	
+	
+	
+	
+	success:function() {
+	
 	//console.log(data);
 	//window.location = "/eSIM/simulation.php";
-	window.open('/eSIM/simulation.php', '_blank');
+	window.open('/eSIM/simulation.php','about:blank','scrollbars=auto , scrollbars=1, left=300,top=50,width=800,height=600,toolbar=0,resizable=0');
 	//alert ();
 	//if( data == 'fail' ) {
-	//console.log("nahi hua  bc");
+	//console.log("nada");
 	//} 
     
        // else if (data = 'success') {
-        //console.log("ho gaya bc");
+        //console.log("ya");
     	//} 
 }, 
             
@@ -39,7 +54,19 @@ For Simulation of Netlist
 	
  });
 
+/*------------------------------------------------------------------------------------------------------------------------------------------------
+VIEW NETLIST WINDOW
+------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+jQuery("#webtronics_netlist").click(function(){
+
+    jQuery('#webtronics_netlist_text_div').show(); 
+    jQuery('#webtronics_netlist_buttons').show();
+    jQuery('#webtronics_netlist_text').show();       
+    jQuery('#webtronics_disable').show();
+
+
+ });
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------
 For Download of netlist
@@ -65,11 +92,11 @@ For Download of netlist
 	//console.log(data);
 	window.location = "/eSIM/download.php"	;
 	//if( data == 'fail' ) {
-	//console.log("nahi hua  bc");
+	//console.log("nahi hua  ");
 	//} 
     
        // else if (data = 'success') {
-        //console.log("ho gaya bc");
+        //console.log("ho gaya ");
     	//} 
 }, 
             

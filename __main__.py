@@ -43,7 +43,7 @@ def get_plot_files(file):
         parsed_files.append(os.path.realpath(dir1[:-4])+'/parsed_%s.txt'%(i))
     return parameters, parsed_files    
 
-def loudew(file):
+def parse_files(file):
     parameters, parsed_files = get_plot_files(file)  
 
     for plot_file, parameter in zip(parsed_files, parameters):
@@ -66,7 +66,7 @@ def main():
 
     files = sys.argv[1:]
     for fi in files:
-        loudew(fi)
+        parse_files(fi)
               
 if __name__ == '__main__':
     main()
